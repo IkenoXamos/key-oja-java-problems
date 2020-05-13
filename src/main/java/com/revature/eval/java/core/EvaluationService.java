@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class EvaluationService {
@@ -287,12 +288,25 @@ public class EvaluationService {
 	 * reverses a String. Example: reverse("example"); -> "elpmaxe"
 	 */
 	public String reverse(String string) {
-		String reverseString = "";
-
-		for (int i = string.length() - 1; i >= 0; i--) {
-			reverseString += string.charAt(i);
-		}
-		return reverseString;
+		//Stream Solution:
+		
+		// Get a Stream of indices
+		// Reverse them
+		// Then grab char of each index
+		// Convert each character to 1 letter String
+		// Join together
+		return IntStream.range(0, string.length()) // 0, 1, 2, ..., size - 1
+					.map(i -> string.length() - i - 1) // size - 1, size - 2, ..., 1, 0
+					.mapToObj(string::charAt)
+					.map(String::valueOf)
+					.collect(Collectors.joining());
+		
+		// Iterative Solution:
+		//String reverseString = "";
+		//for (int i = string.length() - 1; i >= 0; i--) {
+		//	reverseString += string.charAt(i);
+		//}
+		//return reverseString;
 	}
 
 	/**
