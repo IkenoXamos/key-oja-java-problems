@@ -568,14 +568,29 @@ public class EvaluationService {
 	public boolean isArmstrongNumber(int input) {
 		String check = Integer.toString(input);
 		int n = check.length();
-		int sum = 0;
-		int in = input;
-		while (in > 0) {
-			int remender = in % 10;
-			sum = sum + (int) Math.pow(remender, n);
-			in /= 10;
-		}
-		return sum == input;
+		
+		// Stream Solution:
+		
+		// Obtain a stream of each digit as a string
+		// Convert that digit into an int
+		// Sum the power of the digits
+		int value = Arrays.stream(check.split("")) // Digits as a String
+				.mapToInt(Integer::parseInt) // Digits as an Integer
+				.reduce(0, (sum, digit) -> sum + (int) Math.pow(digit, n));
+		
+		// Check if the result matches the input
+		return value == input;
+		
+		// Iterative Solution:
+		
+		//int sum = 0;
+		//int in = input;
+		//while (in > 0) {
+		//	int remender = in % 10;
+		//	sum = sum + (int) Math.pow(remender, n);
+		//	in /= 10;
+		//}
+		//return sum == input;
 	}
 
 	/**
