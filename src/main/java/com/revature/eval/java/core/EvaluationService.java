@@ -451,13 +451,24 @@ public class EvaluationService {
 		set.put("X", 8);
 		set.put("Y", 4);
 		set.put("Z", 10);
-		String[] arr = string.split("");
-		int sum = 0;
-		for (String chr : arr) {
-			sum += set.get(chr.toUpperCase());
-		}
 
-		return sum;
+		// Stream Solution:
+		
+		// Get a Stream of every letter
+		// Convert to the integer value of that uppercase letter
+		// Sum the values
+		return Arrays.stream(string.split(""))
+				.mapToInt((s -> set.get(s.toUpperCase())))
+				.sum();
+		
+		// Iterative Solution:
+		
+		//String[] arr = string.split("");
+		//int sum = 0;
+		//for (String chr : arr) {
+		//	sum += set.get(chr.toUpperCase());
+		//}
+		//return sum;
 	}
 
 	/**
