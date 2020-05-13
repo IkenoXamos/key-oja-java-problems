@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 public class EvaluationService {
 
@@ -234,13 +235,26 @@ public class EvaluationService {
 	public int getGreatestCommonDivisor(int first, int second) {
 		if (first < 10 || second < 10)
 			return -1;
-		int smallestNumber = Math.min(first, second);
-		for (int divisor = smallestNumber; divisor > 0; divisor--) {
-			if (first % divisor == 0 && second % divisor == 0) {
-				return divisor;
-			}
-		}
-		return -1;
+		
+		// Stream Solution:
+		
+		// Obtain a Stream of natural numbers up to (and including) min(first, second)
+		// Only retain values that are divisors of both numbers
+		// Return the maximum or -1
+		return IntStream.rangeClosed(1, Math.min(first, second))
+					.filter(divisor -> first % divisor == 0 && second % divisor == 0)
+					.max()
+					.orElse(-1);
+		
+		// Iterative Solution:
+		
+		//int smallestNumber = Math.min(first, second);
+		//for (int divisor = smallestNumber; divisor > 0; divisor--) {
+		//	if (first % divisor == 0 && second % divisor == 0) {
+		//		return divisor;
+		//	}
+		//}
+		//return -1;
 	}
 
 	/**
