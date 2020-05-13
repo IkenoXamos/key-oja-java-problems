@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -317,15 +318,28 @@ public class EvaluationService {
 	 * long name like Portable Network Graphics to its acronym (PNG).
 	 */
 	public String acronym(String phrase) {
-		String cleanPhrase = phrase.replaceAll("-", " ");
-		String[] words = cleanPhrase.split(" ");
-
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < words.length; i++) {
-			sb.append(words[i].charAt(0));
-		}
-		String acronym = sb.toString().toUpperCase();
-		return acronym;
+		String cleanPhrase = phrase.replace("-", " ");
+		
+		// Stream Solution:
+		
+		// Obtain Stream of words
+		// Convert to Stream of first letter per word
+		// Convert type from char to String
+		// Uppercase the letters
+		// Join the Strings into an acronym
+		return Arrays.stream(cleanPhrase.split(" "))
+				.map(word -> word.charAt(0))
+				.map(String::valueOf)
+				.map(String::toUpperCase)
+				.collect(Collectors.joining());
+		
+		// Iterative Solution:
+		
+		//StringBuilder sb = new StringBuilder();
+		//for (String word : cleanPhrase.split(" ")) {
+		//	sb.append(word.charAt(0));
+		//}
+		//return sb.toString().toUpperCase();
 	}
 
 	/**
