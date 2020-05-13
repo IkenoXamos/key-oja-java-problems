@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -522,24 +523,32 @@ public class EvaluationService {
 	 * free: 1
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		if (string.contains("\n"))
-			string = string.replace("\n", "");
-		if (string.contains(","))
-			string = string.replace(",", " ");
-		Map<String, Integer> ans = new HashMap<String, Integer>();
-		String[] arr = string.split(" ");
-		for (String s : arr) {
-			if (ans.containsKey(s)) {
-				int i = ans.get(s);
-				i++;
-				ans.replace(s, i);
-
-			} else {
-
-				ans.put(s, 1);
-			}
-		}
-		return ans;
+		string = string.replace("\n", "");
+		string = string.replace(",", " ");
+		
+		// Stream Solution:
+		
+		// Split into array of words
+		// Convert to Stream
+		// Convert to Map where
+		// 		The key is the word
+		// 		The value is the count
+		return Arrays.stream(string.split(" "))
+				.collect(Collectors.toMap(
+					Function.identity(),
+					e -> 1, Math::addExact));
+		
+		// Iterative Solution:
+		
+		//Map<String, Integer> ans = new HashMap<String, Integer>();
+		//for (String s : string.split(" ")) {
+		//	if (ans.containsKey(s)) {
+		//		ans.replace(s, ans.get(s) + 1);
+		//	} else {
+		//		ans.put(s, 1);
+		//	}
+		//}
+		//return ans;
 	}
 
 	/**
