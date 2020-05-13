@@ -3,10 +3,8 @@ package com.revature.eval.java.core;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -684,18 +682,29 @@ public class EvaluationService {
 	 * The sum of these multiples is 78.
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
-		Set<Integer> hs = new HashSet<Integer>();
-		int k = 0;
-		int j = 0;
-		int num = 0;
-		for (j = 0; j < set.length; j++) {
-			num = set[j];
-			for (k = 1; num * k < i; k++) {
-				int product = num * k;
-				hs.add(product);
-			}
-		}
-		int sum = hs.stream().mapToInt(Integer::intValue).sum();
-		return sum;
+		// Stream Solution:
+		
+		// Get all natural numbers up to i
+		// Only retain the natural numbers that were a multiple of a value in set
+		// Sum the leftovers
+		return IntStream.range(1, i)
+				.filter(x -> Arrays.stream(set)
+							.anyMatch(multiple -> x % multiple == 0))
+				.sum();
+
+		// Iterative Solution:
+		
+		//Set<Integer> hs = new HashSet<>();
+		//int k = 0;
+		//int j = 0;
+		//int num = 0;
+		//for (j = 0; j < set.length; j++) {
+		//	num = set[j];
+		//	for (k = 1; num * k < i; k++) {
+		//		int product = num * k;
+		//		hs.add(product);
+		//	}
+		//}
+		//return hs.stream().mapToInt(Integer::intValue).sum();
 	}
 }
