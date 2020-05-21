@@ -6,10 +6,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -597,4 +599,38 @@ public class EvaluationServiceTest {
 		assertEquals(4950, output);
 
 	}
+	
+	/*******************************************************************
+	 * Question 21
+	 ******************************************************************/
+	@Test
+	public void testThreeLuckyNumbers() {
+		int[] arr = evaluationService.threeLuckyNumbers();
+		int count = 0;
+		for(int i : arr) {
+			if(i > 0 && i <= 100) {
+				count++;
+			} else {
+				break;
+			}
+		}
+		assertEquals(3, count);	
+	}
+	
+	
+	/*******************************************************************
+	 * Question 22
+	 ******************************************************************/
+	
+	@Test
+	public void testGuessingGame() {
+		int n = evaluationService.guessingGame(1, 10);
+		boolean result = true;
+		if(n < 1 || n > 10) {
+			result = false;
+		}
+		assertEquals(true, result);
+	}
+	
+	
 }
